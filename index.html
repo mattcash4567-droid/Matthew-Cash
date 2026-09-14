@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Silver Halide — Film Photography &amp; Motion</title>
+<meta name="description" content="Film photography and documentary motion work — portraits, travel and the moments in between.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --bg-panel:#E4E0D4;
+    --ink:#1C1B18;
+    --ink-soft:#5B564C;
+    --line:#D3CCBC;
+    --accent:#8C6430;
+    --white:#FBFAF7;
+    --gutter:clamp(24px,5vw,64px);
+    --maxw:1560px;
+    --radius:5px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  ul{margin:0;padding:0;}
+  h1,h2,h3,p{margin:0;}
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter);}
+
+  /* ---------- placeholder photo swatches (no external requests) ---------- */
+  /* Swap: replace a .ph div with <img src="your-photo.jpg" alt="..."> once you have real images. */
+  .ph{position:relative;width:100%;height:100%;overflow:hidden;background:linear-gradient(135deg,var(--c1),var(--c2));}
+  .ph::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 25% 20%,rgba(255,255,255,.16),transparent 55%);}
+  .ph::after{
+    content:"";position:absolute;inset:-15%;opacity:.25;mix-blend-mode:overlay;background-size:150px 150px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='150'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .tone-1{--c1:#A67C3D;--c2:#3B2C18;}
+  .tone-2{--c1:#8C6430;--c2:#2E2013;}
+  .tone-3{--c1:#6E6552;--c2:#26221A;}
+  .tone-4{--c1:#9C7B4A;--c2:#33281A;}
+  .tone-5{--c1:#5B5142;--c2:#1F1B15;}
+  .tone-6{--c1:#B08947;--c2:#3E2E17;}
+  .tone-7{--c1:#77644A;--c2:#251F17;}
+
+  /* ---------- header ---------- */
+  .site-header{
+    position:relative;z-index:210;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px var(--gutter) 10px;
+    max-width:var(--maxw);margin:0 auto;
+  }
+  .brand{display:flex;flex-direction:column;gap:3px;text-decoration:none;}
+  .brand-name{font-weight:700;font-size:14px;letter-spacing:.16em;}
+  .brand-tag{font-size:10.5px;letter-spacing:.14em;color:var(--ink-soft);}
+
+  .main-nav ul{display:flex;gap:36px;list-style:none;font-size:13px;letter-spacing:.08em;}
+  .main-nav a{text-decoration:none;padding-bottom:5px;border-bottom:1px solid transparent;transition:border-color .2s;}
+  .main-nav a.is-active,.main-nav a:hover{border-color:var(--ink);}
+
+  .nav-toggle{
+    display:none;position:relative;width:40px;height:40px;border:1px solid var(--line);border-radius:50%;
+    background:none;cursor:pointer;padding:0;
+  }
+  .nav-toggle::before,.nav-toggle::after{
+    content:"";position:absolute;left:12px;width:16px;height:1.5px;background:var(--ink);
+    transition:transform .25s ease,top .25s ease;
+  }
+  .nav-toggle::before{top:16px;}
+  .nav-toggle::after{top:23px;}
+  .nav-toggle.is-active::before{top:19.5px;transform:rotate(45deg);}
+  .nav-toggle.is-active::after{top:19.5px;transform:rotate(-45deg);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    display:grid;grid-template-columns:minmax(300px,420px) 1fr;
+    gap:clamp(32px,5vw,64px);align-items:center;
+    max-width:var(--maxw);margin:0 auto;
+    padding:28px var(--gutter) 72px;
+  }
+  .hero-copy .eyebrow{
+    font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:18px;
+  }
+  .hero-copy h1{
+    font-size:clamp(32px,4.3vw,56px);line-height:1.08;font-weight:600;
+    letter-spacing:-.01em;margin-bottom:22px;max-width:12ch;
+  }
+  .hero-copy .lede{
+    font-size:17px;line-height:1.65;color:var(--ink-soft);
+    max-width:36ch;margin-bottom:34px;
+  }
+  .watch-reel{
+    display:inline-flex;align-items:center;gap:15px;
+    background:none;border:none;cursor:pointer;padding:0;
+  }
+  .watch-reel .ring{
+    width:54px;height:54px;border-radius:50%;border:1.5px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;flex:none;
+    transition:background .2s ease,color .2s ease;
+  }
+  .watch-reel:hover .ring{background:var(--ink);color:var(--bg);}
+  .watch-reel svg{width:13px;height:13px;margin-left:2px;}
+  .watch-reel .label{font-size:13px;letter-spacing:.1em;font-weight:600;}
+
+  .hero-visual{position:relative;}
+  .hero-visual .frame{
+    position:relative;border-radius:var(--radius);overflow:hidden;
+    aspect-ratio:4/5;
+  }
+  .hero-tag{
+    position:absolute;top:26px;right:-14px;
+    background:var(--white);padding:9px 16px 11px;
+    transform:rotate(-3deg);
+    box-shadow:0 10px 22px rgba(20,19,17,.14);
+    font-family:'Caveat',cursive;font-size:22px;line-height:1;
+    color:var(--ink);
+  }
+
+  /* ---------- section head (shared) ---------- */
+  .section-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    gap:20px;max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter);
+  }
+  .section-head h2{
+    font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;
+  }
+  .head-controls{display:flex;align-items:center;gap:18px;}
+  .scroll-btn{
+    width:34px;height:34px;border-radius:50%;border:1px solid var(--line);
+    background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:border-color .2s;
+  }
+  .scroll-btn:hover{border-color:var(--ink);}
+  .scroll-btn svg{width:12px;height:12px;}
+  .view-all{
+    font-size:13px;letter-spacing:.03em;text-decoration:none;
+    display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
+  }
+
+  /* ---------- video reels ---------- */
+  .reels{padding-top:8px;}
+  .reel-wheel{
+    display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;
+    padding:22px var(--gutter) 10px;max-width:var(--maxw);margin:0 auto;
+    scrollbar-width:none;-ms-overflow-style:none;
+  }
+  .reel-wheel::-webkit-scrollbar{display:none;}
+  .reel-card{
+    position:relative;flex:0 0 auto;width:262px;aspect-ratio:4/3;
+    border-radius:var(--radius);overflow:hidden;scroll-snap-align:start;
+    border:none;padding:0;cursor:pointer;
+  }
+  .reel-card .ph{transition:transform .5s cubic-bezier(.2,.7,.3,1);}
+  .reel-card:hover .ph{transform:scale(1.045);}
+  .reel-card .play-dot{
+    position:absolute;inset:0;margin:auto;width:42px;height:42px;
+    border-radius:50%;border:1.5px solid rgba(251,250,247,.85);
+    display:flex;align-items:center;justify-content:center;color:var(--white);
+  }
+  .reel-card .play-dot svg{width:11px;height:11px;margin-left:2px;}
+  .reel-card .duration{
+    position:absolute;right:10px;bottom:10px;font-size:11.5px;color:var(--white);
+    background:rgba(20,19,17,.55);padding:2px 7px;border-radius:2px;letter-spacing:.02em;
+  }
+
+  /* ---------- featured work ---------- */
+  .work{max-width:var(--maxw);margin:70px auto 0;padding:0 var(--gutter) 96px;}
+  .work-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:22px;}
+  .work-grid figure{position:relative;margin:0;aspect-ratio:4/5;overflow:hidden;border-radius:var(--radius);}
+  .work-grid .ph{transition:transform .5s ease;}
+  .work-grid a:hover .ph{transform:scale(1.035);}
+  .work-grid figcaption{
+    position:absolute;left:10px;bottom:10px;color:var(--white);font-size:12px;
+    letter-spacing:.03em;opacity:0;transition:opacity .2s ease;z-index:1;
+    text-shadow:0 1px 8px rgba(0,0,0,.5);
+  }
+  .work-grid a:hover figcaption{opacity:1;}
+
+  /* ---------- footer ---------- */
+  .site-footer{
+    border-top:1px solid var(--line);
+    max-width:var(--maxw);margin:0 auto;padding:42px var(--gutter) 30px;
+    display:flex;flex-wrap:wrap;justify-content:space-between;gap:32px;
+  }
+  .footer-lede{max-width:34ch;}
+  .footer-lede .brand-name{display:block;margin-bottom:10px;}
+  .footer-lede p{color:var(--ink-soft);font-size:14px;line-height:1.6;}
+  .footer-contact{display:flex;flex-direction:column;gap:10px;font-size:14px;}
+  .footer-contact a{text-decoration:none;}
+  .footer-contact a:hover{text-decoration:underline;}
+  .footer-social{display:flex;gap:20px;font-size:13px;letter-spacing:.05em;}
+  .footer-social a{text-decoration:none;color:var(--ink-soft);}
+  .footer-social a:hover{color:var(--ink);}
+  .footer-bottom{
+    max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter) 36px;
+    font-size:12px;color:var(--ink-soft);
+  }
+
+  /* ---------- modal ---------- */
+  .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:300;padding:24px;}
+  .modal.is-open{display:flex;}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(18,17,15,.92);}
+  .modal-inner{position:relative;width:min(960px,100%);}
+  .modal-video{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:2px;overflow:hidden;}
+  .modal-video iframe{width:100%;height:100%;border:0;}
+  .modal-close{
+    position:absolute;top:-46px;right:0;background:none;border:none;color:var(--white);
+    cursor:pointer;padding:6px;line-height:1;
+  }
+  .modal-close svg{width:20px;height:20px;}
+
+  /* ---------- one entrance moment ---------- */
+  .hero-copy,.hero-visual{animation:rise .7s cubic-bezier(.2,.7,.3,1) both;}
+  .hero-visual{animation-delay:.1s;}
+  @keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important;scroll-behavior:auto!important;}
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .hero{grid-template-columns:1fr;}
+    .hero-visual{order:-1;}
+    .hero-visual .frame{aspect-ratio:16/11;}
+    .hero-copy h1{max-width:none;}
+    .work-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:680px){
+    .nav-toggle{display:block;}
+    .main-nav{
+      position:fixed;inset:0;z-index:200;
+      background:var(--white);
+      display:none;flex-direction:column;justify-content:center;
+      padding:0 var(--gutter);
+    }
+    .main-nav.is-open{display:flex;}
+    .main-nav ul{flex-direction:column;gap:24px;}
+    .main-nav a{font-size:24px;letter-spacing:.01em;}
+    .reel-card{width:220px;}
+  }
+  @media (max-width:480px){
+    .work-grid{grid-template-columns:1fr 1fr;gap:10px;}
+    .hero-tag{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a class="brand" href="#">
+    <span class="brand-name">SILVER&nbsp;HALIDE</span>
+    <span class="brand-tag">FILM / DOCUMENTARY</span>
+  </a>
+  <nav class="main-nav" id="mainNav">
+    <ul>
+      <li><a href="#reels" class="is-active">Work</a></li>
+      <li><a href="#work">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav"></button>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Every frame shot on film</p>
+      <h1>Photographs that still feel like memories.</h1>
+      <p class="lede">Portraits, travel and documentary work — the unposed moments in between.</p>
+      <button class="watch-reel" data-vimeo-id="76979871" data-vimeo-h="8272103f6e" aria-label="Play showreel">
+        <span class="ring">
+          <svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg>
+        </span>
+        <span class="label">Watch reel</span>
+      </button>
+    </div>
+    <div class="hero-visual">
+      <div class="frame">
+        <div class="ph tone-1" role="img" aria-label="Portrait of a photographer at their desk, surrounded by film cameras and rolls of film."></div>
+      </div>
+      <p class="hero-tag">same light,<br>different roll →</p>
+    </div>
+  </section>
+
+  <section class="reels" id="reels">
+    <div class="section-head">
+      <h2>Video reels</h2>
+      <div class="head-controls">
+        <button class="scroll-btn" id="reelPrev" aria-label="Scroll reels left">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 1L2 6l6 5"/></svg>
+        </button>
+        <button class="scroll-btn" id="reelNext" aria-label="Scroll reels right">
+          <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 1l6 5-6 5"/></svg>
+        </button>
+        <a class="view-all" href="#reels">View all →</a>
+      </div>
+    </div>
+
+    <div class="reel-wheel" id="reelWheel">
+      <!-- Each card's data-vimeo-id / data-vimeo-h — swap in your own Vimeo video IDs to replace these. -->
+      <button class="reel-card" data-vimeo-id="1136128155" aria-label="Play: HINTERLAND 2.0, from workdays to weekends">
+        <div class="ph tone-2"></div>
+        <span class="play-dot"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg></span>
+      </button>
+      <button class="reel-card" data-vimeo-id="76979871" data-vimeo-h="8272103f6e" aria-label="Play: Night market, Tokyo, 0:24">
+        <div class="ph tone-3"></div>
+        <span class="play-dot"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg></span>
+        <span class="duration">0:24</span>
+      </button>
+      <button class="reel-card" data-vimeo-id="76979871" data-vimeo-h="8272103f6e" aria-label="Play: Train window, 0:32">
+        <div class="ph tone-4"></div>
+        <span class="play-dot"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg></span>
+        <span class="duration">0:32</span>
+      </button>
+      <button class="reel-card" data-vimeo-id="76979871" data-vimeo-h="8272103f6e" aria-label="Play: City lights, 0:21">
+        <div class="ph tone-5"></div>
+        <span class="play-dot"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg></span>
+        <span class="duration">0:21</span>
+      </button>
+      <button class="reel-card" data-vimeo-id="76979871" data-vimeo-h="8272103f6e" aria-label="Play: Behind the lens, 0:19">
+        <div class="ph tone-6"></div>
+        <span class="play-dot"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg></span>
+        <span class="duration">0:19</span>
+      </button>
+      <button class="reel-card" data-vimeo-id="76979871" data-vimeo-h="8272103f6e" aria-label="Play: Pacific coastline, 0:27">
+        <div class="ph tone-7"></div>
+        <span class="play-dot"><svg viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7V0z"/></svg></span>
+        <span class="duration">0:27</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="section-head" style="padding:0;">
+      <h2>Selected work</h2>
+    </div>
+    <div class="work-grid">
+      <a href="#"><figure>
+        <div class="ph tone-3"></div>
+        <figcaption>Portrait, Brooklyn</figcaption>
+      </figure></a>
+      <a href="#"><figure>
+        <div class="ph tone-6"></div>
+        <figcaption>Dolomites, Italy</figcaption>
+      </figure></a>
+      <a href="#"><figure>
+        <div class="ph tone-2"></div>
+        <figcaption>Fleet Street, London</figcaption>
+      </figure></a>
+      <a href="#"><figure>
+        <div class="ph tone-5"></div>
+        <figcaption>Big Sur, California</figcaption>
+      </figure></a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="footer-lede">
+    <span class="brand-name">SILVER HALIDE</span>
+    <p>Based in the Pacific Northwest, available for portrait, travel and documentary work worldwide.</p>
+  </div>
+  <div class="footer-contact">
+    <a href="mailto:hello@silverhalide.co">hello@silverhalide.co</a>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">Vimeo</a>
+    </div>
+  </div>
+</footer>
+<div class="footer-bottom">© 2026 Silver Halide. All rights reserved.</div>
+
+<div class="modal" id="videoModal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-inner">
+    <button class="modal-close" id="modalClose" aria-label="Close video">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 2l16 16M18 2L2 18"/></svg>
+    </button>
+    <div class="modal-video">
+      <iframe id="modalIframe" src="" title="Video player" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  // mobile nav toggle (full-screen overlay, header stays on top so the same button opens/closes)
+  var navToggle = document.getElementById('navToggle');
+  var mainNav = document.getElementById('mainNav');
+  function setNav(open){
+    mainNav.classList.toggle('is-open', open);
+    navToggle.classList.toggle('is-active', open);
+    navToggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  navToggle.addEventListener('click', function(){
+    setNav(!mainNav.classList.contains('is-open'));
+  });
+  mainNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){ setNav(false); });
+  });
+
+  // reel wheel prev/next
+  var wheel = document.getElementById('reelWheel');
+  document.getElementById('reelPrev').addEventListener('click', function(){
+    wheel.scrollBy({left:-560,behavior:'smooth'});
+  });
+  document.getElementById('reelNext').addEventListener('click', function(){
+    wheel.scrollBy({left:560,behavior:'smooth'});
+  });
+
+  // vimeo modal
+  var modal = document.getElementById('videoModal');
+  var iframe = document.getElementById('modalIframe');
+
+  function openModal(id, h){
+    var src = 'https://player.vimeo.com/video/' + id + '?autoplay=1&title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479';
+    if (h) src += '&h=' + h;
+    iframe.src = src;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden','true');
+    iframe.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-vimeo-id]').forEach(function(el){
+    el.addEventListener('click', function(){
+      openModal(el.getAttribute('data-vimeo-id'), el.getAttribute('data-vimeo-h'));
+    });
+  });
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalBackdrop').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+  });
+</script>
+<script src="https://player.vimeo.com/api/player.js"></script>
+</body>
+</html>
